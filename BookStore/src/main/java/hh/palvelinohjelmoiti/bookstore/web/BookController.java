@@ -1,25 +1,54 @@
 package hh.palvelinohjelmoiti.bookstore.web;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import hh.palvelinohjelmoiti.bookstore.domain.Book;
+import hh.palvelinohjelmoiti.bookstore.domain.BookRepository;
 
 @Controller
 public class BookController {
 
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String getBooks(Model model) {
-		List<Book> books = new ArrayList<Book>();
-		books.add(new Book("Paikka Vapaana", "J.K Rowling", 2010, "9789520427406", 15.90));
-		books.add(new Book("Luonnon Voimat", "Jane Harper", 2016, "5789524427416", 12.90));
-		model.addAttribute("books", books);
+	@Autowired
+	private BookRepository repository;
+
+	@RequestMapping(value = { "/", "/booklist" })
+	public String bookList(Model model) {
+
+		model.addAttribute("books", repository.findAll());
 		return "booklist";
 	}
+
+	@RequestMapping(value = { "/add" })
+	public String addBook(Model model) {
+
+		model.addAttribute("book", new Book());
+		return "addbook";
+	}
+
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	public String deleteBook(@PathVariable("id") Long bookId, Model model) {
+		repository.deleteById(bookId);
+		return "redirect:../booklist";
+	}
+
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String save(Book book) {
+		repository.save(book);
+		return "redirect:booklist";
+	}
+
+	@RequestMapping(value = "/update/{id}", method = { RequestMethod.GET, RequestMethod.POST })
+	public String update(@PathVariable("id") Long bookId, Book book) {
+		repository.findById(bookId);
+		repository.save(book);
+		return "updatebook";
+	}
+
+	/* git add --ignore.errors . */
 
 }

@@ -3,41 +3,47 @@
 <head>
 <title>Book List</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css/bootstrap.min.css}" />
+
 <style> 
-    body {
+  body {
         font-family: "Lucida Console", "Courier New", monospace;
         text-align: center;
-        padding-top: 15%;
-        margin-left: 325px;
+        padding-top: 17%;
+        margin-left: 50px;
     }
-    
-    h1{
-    margin-right: 325px;
-    }
-    
     th {
-    padding: 50px;
+    padding: 40px;}
+    
+    h1 {
+    margin-right: 230px;
+    margin-bottom: 50px;
     }
     </style>
 </head>
 <body>
 	<h1>Books</h1>
-	<table>
-		<tr>
-			<th>Book title</th>
-			<th>Author</th>
-			<th>Release year</th>
-			<th>ISBN</th>
-			<th>Price</th>
-		</tr>
-
-		<tr th:each="book :${books}">
-			<td th:text="${book.title}">title</td>
-			<td th:text="${book.author}">author</td>
-			<td th:text="${book.year}">year</td>
-			<td th:text="${book.isbn}">ISBN</td>
-			<td th:text="${book.price}">price</td>
-		</tr>
+	<table class="table table-bordered" >
+		<tbody>
+			<tr>
+				<th>Book title</th>
+				<th>Author</th>
+				<th>Release year</th>
+				<th>ISBN</th>
+				<th>Price</th>
+				<td><a href="/add" class="btn btn-success"> Lisää kirja</a></td>
+			</tr>
+	
+			<tr th:each="book :${books}">
+				<td th:text="${book.title}">title</td>
+				<td th:text="${book.author}">author</td>
+				<td th:text="${book.year}">year</td>
+				<td th:text="${book.isbn}">ISBN</td>
+				<td th:text="${book.price}">price</td>
+				<td><a  class="btn btn-danger" th:href="@{/delete/{id}(id=${book.id})}">Delete</a></td> 
+				<td><a class="btn btn-info" th:href="@{/update/{id}(id=${book.id})}">Update</a></td> 
+			</tr>
+		</tbody>
 	</table>
 </body>
 </html>

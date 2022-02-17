@@ -10,27 +10,14 @@ public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 
-	private long id;
-
+	private Long id;
 	private String title;
-
 	private String author;
-
 	private int year;
-
 	private String isbn;
-
 	private double price;
 
-	// constructors
-
 	public Book() {
-		super();
-		this.title = null;
-		this.author = null;
-		this.year = 0;
-		this.isbn = null;
-		this.price = 0;
 	}
 
 	public Book(String title, String author, int year, String isbn, double price) {
@@ -45,11 +32,11 @@ public class Book {
 
 	// toString
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
