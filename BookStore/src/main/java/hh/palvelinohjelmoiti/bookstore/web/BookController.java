@@ -49,6 +49,4 @@ public class BookController {
 		return "updatebook";
 	}
 
-	/* git add --ignore.errors . */
-
 }

@@ -4,8 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-@Entity
+@Entity(name = "book")
 public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,6 +18,10 @@ public class Book {
 	private int year;
 	private String isbn;
 	private double price;
+
+	@ManyToOne
+	@JoinColumn(name = "categoryid")
+	private Category category;
 
 	public Book() {
 	}
